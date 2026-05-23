@@ -1,0 +1,29 @@
+{
+  "name": "Academic English — Learning Hub",
+  "short_name": "Academic EN",
+  "description": "IELTS Advanced vocabulary, grammar, and your personal learning profile.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4f6fb",
+  "theme_color": "#4f46e5",
+  "lang": "en",
+  "categories": ["education", "books"],
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

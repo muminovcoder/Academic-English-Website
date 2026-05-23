@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Academic English vocabulary — 10 units, 1100+ words with pronunciation, definitions, examples and synonyms.">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Academic EN">
+    <title>Academic English — Learning Hub</title>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icons/icon.svg">
+    <!-- Optional: set API URL when not using npm start (default http://localhost:3000 for file://) -->
+    <!-- <meta name="api-base" content="http://localhost:3000"> -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <div id="pwaInstallBar" class="pwa-install-bar is-hidden" role="region" aria-label="Install app">
+        <p class="pwa-install-text">Install on your phone for the best experience.</p>
+        <div class="pwa-install-actions">
+            <button type="button" class="btn btn-primary" id="pwaInstallBtn">Install app</button>
+            <button type="button" class="btn" id="pwaInstallDismiss" aria-label="Dismiss">×</button>
+        </div>
+    </div>
+
+    <div id="serverBanner" class="server-banner is-hidden" role="alert">
+        <strong>Server ishlamayapti.</strong>
+        Terminalda: <code>npm install</code> → <code>npm start</code> →
+        <a href="http://localhost:3000">http://localhost:3000</a> oching.
+    </div>
+
+    <div class="app-shell">
+        <!-- Auth -->
+        <section id="authView" class="auth-view" aria-label="Sign in">
+            <div class="auth-card">
+                <div class="online-widget" data-online-widget aria-live="polite">
+                    <span class="online-pulse" aria-hidden="true"></span>
+                    <div class="online-widget-body">
+                        <span class="online-count" data-online-count>—</span>
+                        <span class="online-label" data-online-label>learners online now</span>
+                    </div>
+                </div>
+                <span class="home-badge">✦ Academic English</span>
+                <h1 id="authHeading">Welcome back</h1>
+                <p id="authSubheading" class="auth-sub">Sign in with your nickname and password.</p>
+
+                <div class="auth-tabs" role="tablist">
+                    <button type="button" id="authModeLogin" class="auth-tab is-active" role="tab">Sign in</button>
+                    <button type="button" id="authModeRegister" class="auth-tab" role="tab">Register</button>
+                </div>
+
+                <form id="authForm" data-mode="login" novalidate>
+                    <label class="auth-field">
+                        <span>Nickname</span>
+                        <input
+                            type="text"
+                            id="authUsername"
+                            name="username"
+                            autocomplete="username"
+                            placeholder="e.g. sarah_ielts"
+                            minlength="3"
+                            maxlength="24"
+                            pattern="[a-zA-Z0-9_]{3,24}"
+                            required
+                        >
+                        <small>3–24 characters · letters, numbers, underscore · unique</small>
+                    </label>
+                    <label class="auth-field">
+                        <span>Password (8 characters)</span>
+                        <input
+                            type="password"
+                            id="authPassword"
+                            name="password"
+                            autocomplete="current-password"
+                            minlength="8"
+                            maxlength="8"
+                            placeholder="Exactly 8 characters"
+                            required
+                        >
+                        <small id="passwordHint" class="password-hint">0 / 8 characters</small>
+                    </label>
+                    <p id="authError" class="auth-error" role="alert"></p>
+                    <button type="submit" class="btn btn-primary btn-auth-submit" id="authSubmit">Sign in</button>
+                </form>
+
+                <p class="auth-divider"><span>or</span></p>
+
+                <div id="googleSignInWrap" class="google-signin-wrap">
+                    <p class="google-label">Connect with Google</p>
+                    <div id="googleSignInBtn" class="google-signin-btn"></div>
+                </div>
+                <p id="googleHint" class="google-hint is-hidden"></p>
+            </div>
+        </section>
+
+        <!-- Home -->
+        <section id="homeView" class="is-hidden" aria-label="Home">
+            <header class="profile-bar is-hidden" id="profileBar">
+                <div class="profile-bar-main">
+                    <span class="profile-avatar" id="profileAvatar" aria-hidden="true">?</span>
+                    <div>
+                        <p class="profile-name" id="profileName">@user</p>
+                        <p class="profile-meta" id="profileMeta"></p>
+                        <p class="profile-book" id="profileBook">—</p>
+                    </div>
+                </div>
+                <button type="button" class="btn" id="btnLogout">Sign out</button>
+            </header>
+
+            <div class="online-widget online-widget--home" data-online-widget aria-live="polite">
+                <span class="online-pulse" aria-hidden="true"></span>
+                <div class="online-widget-body">
+                    <span class="online-count" data-online-count>—</span>
+                    <span class="online-label" data-online-label>learners online now</span>
+                </div>
+                <span class="online-badge">Live</span>
+            </div>
+
+            <div class="home-hero">
+                <span class="home-badge">✦ Academic English</span>
+                <h1>Your learning hub</h1>
+                <p>Choose a module to begin. Works on Android &amp; iPhone — add to home screen for app-like experience.</p>
+            </div>
+
+            <div class="module-grid">
+                <article
+                    id="vocabModuleCard"
+                    class="module-card"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Open Vocabulary — Units 1 to 10"
+                >
+                    <span class="module-icon" aria-hidden="true">📘</span>
+                    <h2>Vocabulary</h2>
+                    <p>Units 1–10 with IPA pronunciation, clear definitions, example sentences, and synonyms. Search, filter, and listen with text-to-speech.</p>
+                    <div class="module-meta">
+                        <span class="meta-tag">10 units</span>
+                        <span class="meta-tag">1,100+ words</span>
+                        <span class="meta-tag">Text-to-speech</span>
+                    </div>
+                    <span class="module-arrow" aria-hidden="true">→</span>
+                </article>
+
+                <article
+                    id="grammarModuleCard"
+                    class="module-card"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Open Grammar — Tenses and Units 1 to 10"
+                >
+                    <span class="module-icon" aria-hidden="true">📝</span>
+                    <h2>Grammar</h2>
+                    <p>All English tenses with clear examples and Uzbek explanations, then essential grammar from Units 1–10.</p>
+                    <div class="module-meta">
+                        <span class="meta-tag">15 tenses</span>
+                        <span class="meta-tag">10 units</span>
+                        <span class="meta-tag">Bilingual notes</span>
+                    </div>
+                    <span class="module-arrow" aria-hidden="true">→</span>
+                </article>
+            </div>
+
+            <p class="home-footer">
+                PWA · Android &amp; iOS · Press <kbd>/</kbd> to search
+            </p>
+        </section>
+
+        <!-- Vocabulary -->
+        <section id="vocabView" aria-label="Vocabulary">
+            <header class="vocab-topbar">
+                <button type="button" class="btn-back" id="btnBack" aria-label="Back to home">
+                    ← Back
+                </button>
+                <div class="vocab-title-block">
+                    <h1>Vocabulary</h1>
+                    <span class="vocab-book-label" id="vocabBookLabel"></span>
+                </div>
+                <span class="stats-bar" id="globalStats" aria-live="polite"></span>
+            </header>
+
+            <div class="toolbar" role="search">
+                <div class="toolbar-row">
+                    <div class="search-wrap">
+                        <span class="search-icon" aria-hidden="true">🔍</span>
+                        <input
+                            type="search"
+                            id="search"
+                            placeholder="Search word, definition, example, or synonym…"
+                            autocomplete="off"
+                            aria-label="Search vocabulary"
+                        >
+                        <button type="button" class="search-clear" id="searchClear" aria-label="Clear search">×</button>
+                    </div>
+                    <select id="unitFilter" aria-label="Filter by unit">
+                        <option value="all">All units</option>
+                        <option value="1">Unit 1: Personality</option>
+                        <option value="2">Unit 2: Time &amp; History</option>
+                        <option value="3">Unit 3: Conformity &amp; Society</option>
+                        <option value="4">Unit 4: Science &amp; Chemistry</option>
+                        <option value="5">Unit 5: Education &amp; Careers</option>
+                        <option value="6">Unit 6: Advertising &amp; Persuasion</option>
+                        <option value="7">Unit 7: Travel &amp; Culture</option>
+                        <option value="8">Unit 8: Society &amp; Government</option>
+                        <option value="9">Unit 9: Nature &amp; Conservation</option>
+                        <option value="10">Unit 10: Rocket Science &amp; Space</option>
+                    </select>
+                    <select id="posFilter" aria-label="Filter by part of speech">
+                        <option value="all">All parts of speech</option>
+                    </select>
+                    <select id="sortBy" aria-label="Sort words">
+                        <option value="default">Sort: Unit order</option>
+                        <option value="az">Sort: A → Z</option>
+                        <option value="za">Sort: Z → A</option>
+                    </select>
+                </div>
+
+                <div class="toolbar-row">
+                    <div class="unit-chips" id="unitChips" role="group" aria-label="Quick unit filter"></div>
+                </div>
+
+                <div class="toolbar-row">
+                    <div class="btn-group">
+                        <button type="button" class="btn is-active" id="btnSynonyms">Synonyms: On</button>
+                        <button type="button" class="btn" id="btnCompact">View: Full</button>
+                        <button type="button" class="btn btn-primary" id="btnReset">Reset filters</button>
+                        <button type="button" class="btn" id="btnTop">↑ Top</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading-bar" id="loadingBar" aria-hidden="true"><span></span></div>
+            <p class="results-info" id="resultsText" aria-live="polite">Loading vocabulary…</p>
+            <main id="vocabContainer"></main>
+        </section>
+
+        <!-- Grammar -->
+        <section id="grammarView" aria-label="Grammar">
+            <header class="vocab-topbar">
+                <button type="button" class="btn-back" id="btnGrammarBack" aria-label="Back to home">
+                    ← Back
+                </button>
+                <h1>Grammar</h1>
+                <span class="stats-bar" id="grammarStats" aria-live="polite"></span>
+            </header>
+
+            <nav class="grammar-nav" id="grammarNav" aria-label="Grammar sections">
+                <a href="#grammar-tenses" class="grammar-nav-link is-active" data-section="tenses">English tenses</a>
+                <a href="#grammar-units" class="grammar-nav-link" data-section="units">Units 1–10</a>
+            </nav>
+
+            <div class="grammar-toolbar" role="search">
+                <div class="search-wrap">
+                    <span class="search-icon" aria-hidden="true">🔍</span>
+                    <input
+                        type="search"
+                        id="grammarSearch"
+                        placeholder="Search tense, rule, or example…"
+                        autocomplete="off"
+                        aria-label="Search grammar"
+                    >
+                    <button type="button" class="search-clear" id="grammarSearchClear" aria-label="Clear search">×</button>
+                </div>
+                <select id="grammarUnitFilter" aria-label="Filter unit grammar" class="grammar-unit-select is-hidden">
+                    <option value="all">All units</option>
+                    <option value="1">Unit 1: Personality</option>
+                    <option value="2">Unit 2: Time &amp; History</option>
+                    <option value="3">Unit 3: Conformity &amp; Society</option>
+                    <option value="4">Unit 4: Science &amp; Chemistry</option>
+                    <option value="5">Unit 5: Education &amp; Careers</option>
+                    <option value="6">Unit 6: Advertising &amp; Persuasion</option>
+                    <option value="7">Unit 7: Travel &amp; Culture</option>
+                    <option value="8">Unit 8: Society &amp; Government</option>
+                    <option value="9">Unit 9: Nature &amp; Conservation</option>
+                    <option value="10">Unit 10: Rocket Science &amp; Space</option>
+                </select>
+                <button type="button" class="btn btn-primary" id="btnGrammarTop">↑ Top</button>
+            </div>
+
+            <p class="results-info" id="grammarResultsText" aria-live="polite"></p>
+            <main id="grammarContainer"></main>
+        </section>
+    </div>
+
+    <!-- Vocabulary book picker -->
+    <div id="bookModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="bookModalTitle">
+        <div class="modal-backdrop"></div>
+        <div class="modal-panel">
+            <h2 id="bookModalTitle">Choose your vocabulary book</h2>
+            <p class="modal-lead">Which book do you want to study? Your choice is saved to your profile.</p>
+            <div id="bookModalList" class="book-modal-list"></div>
+            <p id="bookModalError" class="auth-error" role="alert"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn" id="bookModalCancel">Cancel</button>
+                <button type="button" class="btn btn-primary" id="bookModalConfirm">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/grammar-data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/presence.js"></script>
+    <script src="js/pwa.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
